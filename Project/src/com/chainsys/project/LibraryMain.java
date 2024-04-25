@@ -6,8 +6,6 @@ public class LibraryMain {
 
 	public static void main(String[] args) {
         
-
-
 		String num;
 		
 		Scanner input=new Scanner(System.in);
@@ -16,27 +14,21 @@ public class LibraryMain {
 		
 		String regex1="[12]{1}";
 
-
-		
-		System.out.println("1.Customer\n"+"2.Librarian");
-		
+		System.out.println("1.Customer\n"+"2.Librarian");		
 		System.out.println("Are you a customer OR Librarian?");
 		num=input.next();
 		
 		while(!num.matches(regex1)) {
 			System.out.println("Type 1 or 2");
 			num=input.next();
-
-			
 		}
 		
 		while(!num.equals("1") && !num.equals("2")) {
 			
-			System.out.println("Enter the valid choice");
-			num=input.next();
-
-			
+			System.err.println("Enter the valid choice");
+			num=input.next();		
 		}
+		
 		if(num.equals("1")) {
 			
 			libc.customer();
@@ -45,11 +37,7 @@ public class LibraryMain {
 			
 			librarian.librarian();
 		}
-		
-		
-		
-		
-		
+	
 		
 		input.close();
 		

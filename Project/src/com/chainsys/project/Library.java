@@ -8,6 +8,8 @@ public class Library {
 //	String authorName;
 //	String bookId;
 	int bkId;
+	String libName;
+	int totalBooksAdded;
 	
 	
 //	public String getAuthorName() {
@@ -45,7 +47,22 @@ public class Library {
 	public void setBkId(int bkId) {
 		this.bkId = bkId;
 	}
-	public Library(String name, String bookName, String authorName, int bkId) {
+	
+	
+	
+	public String getLibName() {
+		return libName;
+	}
+	public void setLibName(String libName) {
+		this.libName = libName;
+	}
+	public int getTotalBooksAdded() {
+		return totalBooksAdded;
+	}
+	public void setTotalBooksAdded(int totalBooksAdded) {
+		this.totalBooksAdded = totalBooksAdded;
+	}
+	public Library(String name, String bookName, String authorName,int totalBooksAdded, int bkId) {
 		super();
 		this.name = name;
 //		this.bookName = bookName;

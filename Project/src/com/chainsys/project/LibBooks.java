@@ -1,5 +1,6 @@
 package com.chainsys.project;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class LibBooks {
@@ -10,8 +11,9 @@ public class LibBooks {
 //	String bookName;
 //	String authorName;
 	
-//	String userName;
-//	String pass;
+	String userName;
+	String pass = "";
+	String passW;
 	String ans;
 	String phone;
 	String name="";
@@ -19,11 +21,14 @@ public class LibBooks {
 	String bookId;
 	int bkId = 0;
 
+	String passP="12345678";
 	String regex="[a-zA-Z]{1,10}";
-	String regex1="[0-9]{1,2}";
+	String regex1="[1]{1}[0]";
 	String regex3="[6789]{1}[0-9]{9}";
-//	String regexP="[a-zA-Z]{1,20}[0-9]{1,4}[@$%]{1,2}";
+	String regexP= " ";
 	
+	ArrayList<String>userNames=new ArrayList<>();
+	userNames.add("vikram"+"venkatesh"+"dharani");
 	
 	
 	
@@ -49,30 +54,75 @@ public class LibBooks {
 		System.out.println("Enter the NAME");
 		name=input.next();
 		while(!name.matches(regex)) {
-			System.out.println("Enter the VALID NAME:");
+			System.err.println("Enter the VALID NAME:");
 			name=input.next();
 
 		}
 		System.out.println("Enter the MOBILE number");
 		phone=input.next();
 		while(!phone.matches(regex3)) {
-			System.out.println("Enter the  VALID MOBILE number:");
+			System.err.println("Enter the  VALID MOBILE number:");
 			phone=input.next();
 		}
+		System.out.println("SET PASSWORD");
+		pass=input.next();
+		while(pass.matches(regexP)) {
+			System.err.println("Enter the VALID PASSWORD:");
+			name=input.next();
+
+		}
+
 		
 		
 		
 		System.out.println("SIGNED UP SUCCESFULLY");
 		
 		
+	
+	
+	System.out.println("LOGIN");
+	
+	System.out.println("Enter the USERNAME");
+	userName=input.next();
+	while(!userName.matches(name)) {
+		System.err.println("Incorrect Username/n RE-Enter the username:");
+		userName=input.next();
 	}
-	else if(ans.equals("yes")) {
+	
+	System.out.println("Enter the PASSWORD");
+	passW=input.next();
+	while(!passW.matches(pass)) {
+		System.err.println("Incorrect Password/n RE-Enter the Password:");
+		passW=input.next();
+	}
+	
+	System.out.println("LOGGED IN SUCCESFULLY");
+	
+	}
+	
+	 if(ans.equals("yes")) {
 	
 	System.out.println("Enter  YOUR NAME:");
-	name=input.next();
+	name=input.next().toLowerCase();
 	while(!name.matches(regex)) {
-		System.out.println("Enter the VALID  NAME:");
-		name=input.next();
+		System.err.println("Enter the VALID  NAME:");
+		name=input.next().toLowerCase();
+
+	}
+	for(String copy:userNames) {
+		while(!copy.contains(name)) {
+			System.err.println("PLEASE ENTER THE REGISTERED USERNAME");
+			name=input.next().toLowerCase();
+
+		}
+		
+	}
+	
+	System.out.println("Enter  PASSWORD:");
+	pass=input.next();
+	while(!pass.matches(passP)) {
+		System.err.println("Incorrect Password/n RE-Enter the Password:");
+		pass=input.next();
 
 	}
 	
@@ -96,7 +146,7 @@ public class LibBooks {
 		System.out.println("Enter the BOOK ID:");
 		bookId=input.next();
 		while(!bookId.matches(regex1)) {
-			System.out.println("Enter the VALID  BOOK ID:");
+			System.err.println("Enter the VALID  BOOK ID:");
 			bookId=input.next();
   }
 	
@@ -194,7 +244,7 @@ public class LibBooks {
 		System.out.println("Enter the BOOK ID:");
 		bookId=input.next();
 		while(!bookId.matches(regex1)) {
-			System.out.println("Enter the VALID  BOOK ID:");
+			System.err.println("Enter the VALID  BOOK ID:");
 			bookId=input.next();
   }
 	
@@ -284,11 +334,11 @@ public class LibBooks {
 	}
 	        
 	}
-	
+	System.out.println("---------------------------");
+
 	Library lib=new Library();
 	
 	lib.setName(name);
-
 	lib.setBkId(bkId);
 	
 	

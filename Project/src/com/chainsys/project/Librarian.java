@@ -28,8 +28,7 @@ public class Librarian {
 		
 		String regex="[a-zA-Z]{1,10}";
 		
-		
-		
+       
 		
 		System.out.println("Enter  YOUR NAME:");
 		name=input.next();
@@ -38,8 +37,22 @@ public class Librarian {
 			name=input.next();
 
 		}
-			
-			System.out.println("What do you want to do?\n"+"1.To see the stocks"+"2.To add stocks");
+		
+		  ArrayList<String> librarianNames=new ArrayList<>();
+	        librarianNames.add("akash"+"naveen"+"harish"+"rakesh"+"saravana");
+		
+		for(String copy:librarianNames) {
+			while(!copy.contains(name)) {
+				
+				System.out.println("YOU DON'T HAVE ACCESS \nRE-ENTER THE CORRECT NAME");
+				name=input.next();
+			}
+			System.out.println("WELCOME "+name);
+
+		
+		}
+		
+			System.out.println("What do you want to do?\n"+"1.To see the stocks\n"+"2.To add stocks");
 		     
 		    int choice=input.nextInt();
 	    while(choice!=1 && choice!=2) {
@@ -113,9 +126,9 @@ public class Librarian {
 
 		    		}
 //		    		System.out.println(arrayListE);
-	        		 System.out.println("---------------------------");
+	        		System.out.println("---------------------------");
 		    		System.out.println("Total ENGLISH books before adding new books:"+englishBooks);
-	        		 System.out.println("---------------------------");
+	        		System.out.println("---------------------------");
 		    		System.out.println("Total ENGLISH books after adding new books:"+countE);		    		
 		    				    	}
 		    	

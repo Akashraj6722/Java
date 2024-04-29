@@ -24,9 +24,11 @@ public class Librarian {
 		int countAddE=10;
 		int add = 0;
 		int totalBooksAdded;
+		String choice;
 
 		
 		String regex="[a-zA-Z]{1,10}";
+		String regex1="[12]{1}";
 				
 		System.out.println("Enter  YOUR NAME:");
 		name=input.next().toLowerCase();
@@ -50,18 +52,23 @@ public class Librarian {
 		
 			System.out.println("What do you want to do?\n"+"1.To see the stocks\n"+"2.To add stocks");
 		     
-		    int choice=input.nextInt();
-	    while(choice!=1 && choice!=2) {
+		     choice=input.next();
+		    
+		    while(!choice.matches(regex1)) {
+				System.out.println("Type 1 or 2");
+				choice=input.next();
+			}
+	    while(!choice.matches("1") && !choice.matches("2")) {
 	    	
 	    	System.out.println("Enter 1 OR 2");
-		     choice=input.nextInt();
+		     choice=input.next();
     	
 		    }
 		    
-		    if(choice==1) {
+		    if(choice.equals("1")) {
 		    	System.out.println("TOTAL TAMIL BOOKS:"+tamilBooks+"\nTOTAL ENGLISH BOOKS:"+englishBooks);
 		    }
-		    if(choice==2) {
+		    if(choice.equals("2")) {
 		    	
 		    	System.out.println("Which type of book,You want to add stock for?\n"+"1.Tamil books"+"2.English books");
 		    	int option1=input.nextInt();
@@ -122,7 +129,8 @@ public class Librarian {
 		    		System.out.println("Total ENGLISH books before adding new books:"+englishBooks);
 	        		System.out.println("---------------------------");
 		    		System.out.println("Total ENGLISH books after adding new books:"+countE);		    		
-		    				    	}
+		    		
+		    	}
 		    }
     		System.out.println("---------------------------");
 
@@ -132,6 +140,8 @@ public class Librarian {
 			lib.setTotalBooksAdded(add);
 			
 		System.out.println("LIBRARIAN NAME:"+name+"\nTOTAL BOOKS ADDED:"+add);
+//		System.out.println(lib.getName());
+		
 		input.close();
 	}
 }

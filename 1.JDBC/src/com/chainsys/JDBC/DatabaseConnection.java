@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.Scanner;
 
 import com.mysql.cj.protocol.Resultset;
 
@@ -15,13 +16,13 @@ public class DatabaseConnection {
 		Connection connection = getConnection();
 		System.out.println(connection);
 		
-		String query = "select * from list";
+		String readQuery = "select * from list";
 		
-		PreparedStatement prepareStatement = connection.prepareStatement(query);
+		PreparedStatement prepareStatement = connection.prepareStatement(readQuery);
 		
-		ResultSet rows = prepareStatement.executeQuery();
+		ResultSet rs = prepareStatement.executeQuery();
 		
-		ResultSetMetaData metaData = rows.getMetaData();
+		ResultSetMetaData metaData = rs.getMetaData();
 		
 		int columnCount = metaData.getColumnCount();
 		
@@ -31,22 +32,27 @@ public class DatabaseConnection {
 		}
 		System.out.println();
 		
-		while(rows.next())
+		while(rs.next())
 		{
 			for(int i=1; i<=columnCount; i+=1)
 			{
-				System.out.print(rows.getString(i) + "\t");
+				System.out.print(rs.getString(i) + "\t");
 			}
 			System.out.println();
 		}
 	}
 	
-	public static void insert() throws ClassNotFoundException, SQLException {
+	public static void insert(Library lib) throws ClassNotFoundException, SQLException {
 		Connection connection = getConnection();
+
 		
-		String query = "insert into list values(11, 'GOT')";
+		String insertQuery = "insert into listsT (bookId,bookName)values(?, ?)";
 		
-		PreparedStatement prepare = connection.prepareStatement(query);
+		PreparedStatement prepare = connection.prepareStatement(insertQuery);
+		prepare.setInt(1, lib.bkId);
+		prepare.setString(2, lib.bookName);
+		
+		
 		
 		int rows = prepare.executeUpdate();
 		
@@ -56,9 +62,9 @@ public class DatabaseConnection {
 	public static void update() throws ClassNotFoundException, SQLException {
 		Connection connection = getConnection();
 		
-		String query = "update list set bookName='chorlette witch' where bookId='2'";
+		String UpdateQuery = "update list set bookName='chorlette witch' where bookId='2'";
 		
-		PreparedStatement prepare = connection.prepareStatement(query);
+		PreparedStatement prepare = connection.prepareStatement(UpdateQuery);
 		
 		int rows = prepare.executeUpdate();
 		
@@ -68,9 +74,9 @@ public class DatabaseConnection {
 	public static void delete() throws ClassNotFoundException, SQLException {
 		Connection connection = getConnection();
 		
-		String query = "delete from list where bookId='10'";
+		String deleteQuery = "delete from list where bookId='10'";
 		
-		PreparedStatement prepare = connection.prepareStatement(query);
+		PreparedStatement prepare = connection.prepareStatement(deleteQuery);
 		
 		int rows = prepare.executeUpdate();
 		
@@ -80,9 +86,12 @@ public class DatabaseConnection {
 	
 	public static void main(String[] args) throws ClassNotFoundException, SQLException{
 		
-		insert();
-		update();
-		delete();
+		Library lib=new Library();
+		
+		
+//		update();
+//		delete();
+		read();
 		
 	}
 	
@@ -92,8 +101,9 @@ public class DatabaseConnection {
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 	      
         Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3308/library", "root", "root");
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3308/libraryT", "root", "root");
 
         return connection;
     }
+
 }

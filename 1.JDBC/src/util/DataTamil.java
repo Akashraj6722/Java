@@ -13,13 +13,12 @@ public class DataTamil {
 	
 	public static void read() throws ClassNotFoundException, SQLException {
 		Connection connection = ConnectUtil.getConnection();
-		System.out.println(connection);
 		
-		String readQuery = "select * from list";
+		String readQuery = "select * from listTamil";
 		
 		PreparedStatement prepareStatement = connection.prepareStatement(readQuery);
 		
-		ResultSet rs = prepareStatement.executeQuery();
+		ResultSet rs = prepareStatement.executeQuery(); 
 		
 		ResultSetMetaData metaData = rs.getMetaData();
 		

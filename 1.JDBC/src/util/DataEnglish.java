@@ -27,16 +27,16 @@ public class DataEnglish  {
 		
 		for(int i=1;i<=columnCount;i++) {
 			
-			System.out.println(metaData.getColumnName(i));
+			System.out.print(metaData.getColumnName(i)+"\t");
 		}
 		System.out.println();
 		
 		
 		while(rs.next()) {
 			
-			for(int i=0;i<=columnCount;i++) {
+			for(int i=1;i<=columnCount;i++) {
 				
-				System.out.println(rs.getString(i));
+				System.out.print(rs.getString(i)+"\t");
 			}
 			System.out.println();
 		}

@@ -1,41 +1,34 @@
 package dao;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import model.Library;
+import util.Register;
 
-public class LibBooks {
+public class LibBooks  {
 
-	public void customer() throws IOException  {
+	public void customer() throws IOException, ClassNotFoundException, SQLException  {
 	Scanner input=new Scanner(System.in);
 	
-//	String bookName;
-//	String authorName;
-	
-	String userName;
-	String pass = "";
-	String passW = null;
+	String userName ="";
+	String pass ;
+	String passW ;
 	String ans;
 	String phone;
-	String name="";
+	String name = ""  ;
 	String option;
 	String bookId;
 	int bkId = 0;
 
-//	String passP="12345678";
 	String regex="[a-zA-Z]{1,10}";
-	String regex1="[1]{1}[0]";
+	String regex1="[1-9]{1,2}";
 	String regex3="[6789]{1}[0-9]{9}";
 	String regexP= " ";
 	
-//	ArrayList<String>userNames=new ArrayList<>();
-//	userNames.add("vikram"+"venkatesh"+"dharani");
-	
-	
-	Login login = new Login();
+	Library lib=new Library();
 
-	
 	System.out.println("Are you a membership holder?\n"+"Type yes or no");
 	ans=input.next();
 	
@@ -76,83 +69,78 @@ public class LibBooks {
 			
 
 		}
-		login.loginDetails(name, passW);
+		
+		lib.setUserName(name);
+		lib.setPhone(phone);
+		lib.setPass(pass);
+		Register.register(lib);
 
 		System.out.println("SIGNED UP SUCCESFULLY\n");
-		
-		
 	
 	
 	System.out.println("LOGIN");
 	
 	System.out.println("Enter the USERNAME");
 	userName=input.next();
-//	while(!userName.matches(name)) {
-//		System.err.println("Incorrect Username/n RE-Enter the username:");
-//		userName=input.next();
-//	}
-	
+
 	System.out.println("Enter the PASSWORD");
 	passW=input.next();
-//	while(!passW.matches(pass)) {
-//		System.err.println("Incorrect Password/n RE-Enter the Password:");
-//		passW=input.next();
-//	}
-	while(!login.readerDetails(userName, passW)) {
-		System.out.println("INVALID USERNAME or PASSWORD");
+
+	lib.setUserName(userName);
+	lib.setPassW(passW);
+	
+	Register.login(lib);
+	
+	while(!Register.login(lib)) {
 		
+		System.err.println("Invalid User Data\nEnter It Again  ");
+		
+
 		System.out.println("Enter the USERNAME");
 		userName=input.next();
-		
+
 		System.out.println("Enter the PASSWORD");
 		passW=input.next();
+
+		lib.setUserName(userName);
+		lib.setPassW(passW);
+		
+		Register.login(lib);
+	
 	}
-	
-	
-//	System.out.println("LOGGED IN SUCCESFULLY");
-	
+	System.out.println("Logged in");
+
 	}
 	
 	 if(ans.equals("yes")) {
 	
 	System.out.println("Enter  YOUR NAME:");
-	name=input.next().toLowerCase();
-//	while(!name.matches(regex)) {1
-//		System.err.println("Enter the VALID  NAME:");
-//		name=input.next().toLowerCase();
-//
-//	}
-//	for(String copy:userNames) {
-//		while(!copy.contains(name)) {
-//			System.err.println("PLEASE ENTER THE REGISTERED USERNAME");
-//			name=input.next().toLowerCase();
-//
-//		}
-//	}
+	userName=input.next().toLowerCase();
+
 	
 	System.out.println("Enter  PASSWORD:");
-	pass=input.next();
-//	while(!pass.matches(passP)) {
-//		System.err.println("Incorrect Password/n RE-Enter the Password:");
-//		pass=input.next();
-
-//	}
+	passW=input.next();
 	
-		
-			while(!login.readerDetails(name, pass))
-			{
-				System.out.println("INVALID USERNAME or PASSWORD");
-				
-				System.out.println("Enter the USERNAME");
-				name=input.next();
-				
-				System.out.println("Enter the PASSWORD");
-				pass=input.next();
-			}
-			
-		
+	lib.setUserName(userName);
+	lib.setPassW(passW);
+	
+	Register.login(lib);
 
-
+	while(!Register.login(lib))
+	{
+		System.err.println("Invalid User Data\nEnter It Again  ");
+		System.out.println("Enter  YOUR NAME:");
+		userName=input.next().toLowerCase();
+		lib.setUserName(userName);
+		
+		System.out.println("Enter  PASSWORD:");
+		passW=input.next();
+		lib.setPassW(passW);
+		
+		Register.login(lib);
+		
+	}
+	System.out.println("Logged in");
 }	
 	
 	System.out.println("Enter your choice:\n"+"1.TAMIL books\n"+"2.ENGLISH books\n");
@@ -187,7 +175,6 @@ public class LibBooks {
 	        		 System.out.println("BOOK NAME:"+tamil[i]);
 	        		 System.out.println("---------------------------");
 
-	        	 
 	        	 
 	        	 switch(bkId) {
 	        	 case(1):
@@ -286,7 +273,6 @@ public class LibBooks {
 	        		 System.out.println("---------------------------");
 
 	        	 
-	        	 
 	        	 switch(bkId) {
 	        	 case(1):
 	        		 
@@ -363,9 +349,8 @@ public class LibBooks {
 	}
 	System.out.println("---------------------------");
 
-	Library lib=new Library();
 	
-	lib.setName(name);
+	lib.setName(userName);
 	lib.setBkId(bkId);
 	
 	

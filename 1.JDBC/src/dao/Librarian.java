@@ -257,7 +257,7 @@ public class Librarian {
 			}
 			if (choice.equals("5")) {
 
-				System.out.println("You'r exited");
+				System.out.println("You're exited");
 				break;
 			}
 		}

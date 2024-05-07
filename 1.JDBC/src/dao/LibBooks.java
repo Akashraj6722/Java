@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import model.Library;
+import util.DataEnglish;
+import util.DataTamil;
 import util.Register;
 
 public class LibBooks  {
@@ -17,15 +19,15 @@ public class LibBooks  {
 	String passW ;
 	String ans;
 	String phone;
-	String name = ""  ;
+	String name = "";
 	String option;
 	String bookId;
 	int bkId = 0;
 
 	String regex="[a-zA-Z]{1,10}";
-	String regex1="[1-9]{1,2}";
+	String regex1="[0-9]{1,2}";
 	String regex3="[6789]{1}[0-9]{9}";
-	String regexP= " ";
+	String regexP= "^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+.])(?=.*\\d).{8,}$";
 	
 	Library lib=new Library();
 
@@ -63,9 +65,9 @@ public class LibBooks  {
 		}
 		System.out.println("SET PASSWORD");
 		pass=input.next();
-		while(pass.matches(regexP)) {
+		while(!pass.matches(regexP)) {
 			System.err.println("Enter the VALID PASSWORD:");
-			name=input.next();
+			pass=input.next();
 			
 
 		}
@@ -82,9 +84,10 @@ public class LibBooks  {
 	
 	System.out.println("Enter the USERNAME");
 	userName=input.next();
-
+	
 	System.out.println("Enter the PASSWORD");
 	passW=input.next();
+	
 
 	lib.setUserName(userName);
 	lib.setPassW(passW);
@@ -98,9 +101,11 @@ public class LibBooks  {
 
 		System.out.println("Enter the USERNAME");
 		userName=input.next();
+		
 
 		System.out.println("Enter the PASSWORD");
 		passW=input.next();
+		
 
 		lib.setUserName(userName);
 		lib.setPassW(passW);
@@ -115,11 +120,16 @@ public class LibBooks  {
 	 if(ans.equals("yes")) {
 	
 	System.out.println("Enter  YOUR NAME:");
-	userName=input.next().toLowerCase();
+	userName=input.next();
+	while(!userName.matches(regex)) {
+		System.err.println("Enter the VALID NAME:");
+		userName=input.next();
+	}
 
 	
 	System.out.println("Enter  PASSWORD:");
 	passW=input.next();
+	
 	
 	lib.setUserName(userName);
 	lib.setPassW(passW);
@@ -130,7 +140,7 @@ public class LibBooks  {
 	{
 		System.err.println("Invalid User Data\nEnter It Again  ");
 		System.out.println("Enter  YOUR NAME:");
-		userName=input.next().toLowerCase();
+		userName=input.next();
 		lib.setUserName(userName);
 		
 		System.out.println("Enter  PASSWORD:");
@@ -155,9 +165,7 @@ public class LibBooks  {
 	
 	if(option.equals("tamil")) {
 		
-		System.out.println("Number of books Available:10");
-		
-		System.out.println("1-Seevaka chinthamani\n"+ "2-Silappathikaram\n"+ "3-Manimekalai\n"+ "4-Kundalakesi\n"+"5-Valayapathi\n"+"6-Ramayanam"+"7-Kambaramayanam"+"8-Ponniyin selvan\n"+"9-Karuvaachi kaaviyam\n"+"10-Thanneer desam\n");
+		DataTamil.read();
 		System.out.println("Enter the BOOK ID:");
 		bookId=input.next();
 		while(!bookId.matches(regex1)) {
@@ -252,9 +260,7 @@ public class LibBooks  {
 	
 	if(option.equals("english")) {
 		
-		System.out.println("Number of books Available:10");
-		
-		System.out.println("1-Sherlock holmes\n"+ "2-Half girlfriend\n"+ "3-Treasure island\n"+ "4-Rebel Nation\n"+"5-Rich dad Poor dad\n"+"6-Beyond the ordinary"+"7-Harry potter"+"8-Alice the wonderland\n"+"9-The Great Gatsby\n"+"10-The Lord of the Rings");
+		DataEnglish.read();
 		System.out.println("Enter the BOOK ID:");
 		bookId=input.next();
 		while(!bookId.matches(regex1)) {

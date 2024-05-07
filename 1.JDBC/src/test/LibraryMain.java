@@ -2,6 +2,7 @@ package test;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import dao.LibBooks;
@@ -12,38 +13,40 @@ public class LibraryMain {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, SQLException   {
         
-		String num;
+		int num = 0 ;
 		
 		Scanner input=new Scanner(System.in);
 		LibBooks libc=new LibBooks();
 		Librarian librarian=new Librarian();
 		
-		String regex1="[12]{1}";
 
 		System.out.println("1.Customer\n"+"2.Librarian");		
 		System.out.println("Are you a customer OR Librarian?");
-		num=input.next();
-		
-		while(!num.matches(regex1)) {
-			System.out.println("Type 1 or 2");
-			num=input.next();
-		}
-		
-		while(!num.equals("1") && !num.equals("2")) {
+	
+		while(input.hasNext()) {
+			try {
+				num=input.nextInt();
+				if(num!=1 && num!=2) {
+					System.err.println("Invalid data");
+				}
+			}
 			
-			System.err.println("Enter the valid choice");
-			num=input.next();		
-		}
+			catch(InputMismatchException e) {
+				System.out.println(e);
+				System.err.println("Enter the valid input");
+				input.nextLine();
+			}
 		
-		if(num.equals("1")) {
+		
+		if(num==1) {
 			
 			libc.customer();
 		}
-		 if(num.equals("2")) {
+		 if(num==2) {
 			
 			librarian.librarian();
 		}
-	
+		}
 		
 		input.close();
 		

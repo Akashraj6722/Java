@@ -1,21 +1,23 @@
 package model;
 
+
+
 public class Library {
 	
 	String name;
 	public String bookName;
+	public int bookId;
 
-	public int bkId;
 	String libName;
 	int totalBooksAdded;
 	public String userName;
 	public String pass;
 	public String phone;
 	public String passW;
-	
-	
+	public String date;
+	public String dueDate;
 
-//	}
+
 	public String getBookName() {
 		return bookName;
 	}
@@ -32,17 +34,6 @@ public class Library {
 	}
 
 	
-	
-	
-	public int getBkId() {
-		return bkId;
-	}
-	public void setBkId(int bkId) {
-		this.bkId = bkId;
-	}
-	
-	
-	
 	public String getLibName() {
 		return libName;
 	}
@@ -55,9 +46,6 @@ public class Library {
 	public void setTotalBooksAdded(int totalBooksAdded) {
 		this.totalBooksAdded = totalBooksAdded;
 	}
-	
-	
-	
 	
 	public String getUserName() {
 		return userName;
@@ -80,31 +68,54 @@ public class Library {
 		this.phone = phone;
 	}
 	
-	
-	
-	
 	public String getPassW() {
 		return passW;
 	}
 	public void setPassW(String passW) {
 		this.passW = passW;
 	}
+	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	
+	public String getDueDate() {
+		return dueDate;
+	}
+	public void setDueDate(String dueDate) {
+		this.dueDate = dueDate;
+	}
+	
+	
+	
 	public Library(String name, String bookName, String authorName,int totalBooksAdded, int bkId, String pass, String userName, String phone, String passW) {
 		super();
 		this.name = name;
 		this.bookName = bookName;
-		this.bkId = bkId;
 		this.pass=pass;
 		this.userName=userName;
 		this.phone=phone;
 		this.passW=passW;
 	}
+	
+	
+	
+	public int getBookId() {
+		return bookId;
+	}
+	public void setBookId(int bookId) {
+		this.bookId = bookId;
+	}
 	public Library() {
 		// TODO Auto-generated constructor stub
 	}
-	@Override
+	
 	public String toString() {
-		return "Library [name=" + name +  ", bkId=" + bkId + "]";
+		return "Library [name=" + name +  ", bookId=" + bookId + "]";
 	}
 	
 	

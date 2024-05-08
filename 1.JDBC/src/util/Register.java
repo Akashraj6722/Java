@@ -3,8 +3,9 @@ package util;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.Scanner;
 
 import model.Library;
 
@@ -12,31 +13,49 @@ public class Register {
 	
 	
 	public static void register(Library lib) throws ClassNotFoundException, SQLException {
+		Scanner input=new Scanner(System.in);
+		String regex3="[6789]{1}[0-9]{9}";
+
+		Connection connection = ConnectUtil.getConnection();
+		while(true) {
+			try {
+				String regQuery="insert into register values(?,?,?)";
+				
+				PreparedStatement prepare=connection.prepareStatement(regQuery);
+				
+				prepare.setString(1,lib.userName);
+				prepare.setString(2, lib.pass);
+				prepare.setString(3, lib.phone);
+				int rows =prepare.executeUpdate();
+				
+				System.out.println("Registered user:"+rows);
+				break;
+				}catch(SQLIntegrityConstraintViolationException e) {
+					System.out.println(e);
+					System.out.println("Enter correct phone number");
+					String phone=input.next();
+					while(!phone.matches(regex3)) {
+						System.err.println("Enter the  VALID MOBILE number:");
+						phone=input.next();
+					}
+					lib.setPhone(phone);
+				
+					input.nextLine();
+				}
+			
+		}
 		
-		Connection connection3 = ConnectUtil.getConnection3();
-		
-		String regQuery="insert into register values(?,?,?)";
-		
-		PreparedStatement prepare=connection3.prepareStatement(regQuery);
-		
-		prepare.setString(1,lib.userName);
-		prepare.setString(2, lib.pass);
-		prepare.setString(3, lib.phone);
-		int rows =prepare.executeUpdate();
-		
-		System.out.println("Registered user:"+rows);
-		
-		
+		input.close();
 	}
 	
 	public static  boolean login(Library lib) throws ClassNotFoundException, SQLException {
 		
-		Connection connection4= ConnectUtil.getConnection3();
+		Connection connection= ConnectUtil.getConnection();
 		
 		String checkQuery="Select userName,pass from register where userName=? and pass=?";
 		
 		
-		PreparedStatement prepare=connection4.prepareStatement(checkQuery);
+		PreparedStatement prepare=connection.prepareStatement(checkQuery);
 		prepare.setString(1,lib.getUserName());
 		prepare.setString(2,lib.getPassW());
 	
@@ -44,9 +63,7 @@ public class Register {
 			
 		if(rs.next()) {
 			
-//			System.out.println("login");
 
-			
 			return true;
 	
 		}
@@ -55,10 +72,6 @@ public class Register {
 		return false;
 	}
 	
-	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		
-//		register();
-		
-	}
+
 
 }

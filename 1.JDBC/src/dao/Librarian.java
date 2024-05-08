@@ -2,6 +2,7 @@ package dao;
 
 import util.DataEnglish;
 import util.DataTamil;
+import util.bookRecords;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,19 +21,16 @@ public class Librarian {
 		int englishBooks = 550;
 		int countT = tamilBooks;
 		int countE = englishBooks;
-		int countAddT = 10;
-		int countAddE = 10;
 		int add = 0;
 		int update = 0;
 		int delete = 0;
 
 		String choice = " ";
 		String bookName;
-		int bkId;
+		int bookId;
 
 		String regex = "[a-zA-Z]{1,10}";
-		String regex1 = "[12345]{1}";
-		String regex2="[1-9]{1,2}";
+		String regex1="[1-9]{1,2}";
 
 		System.out.println("Enter  YOUR NAME:");
 		name = input.next().toLowerCase();
@@ -57,21 +55,17 @@ public class Librarian {
 		lib.setName(name);
 		lib.setTotalBooksAdded(add);
 
-		while (!choice.equals("5")) {
+		while (!choice.equals("6")) {
 
 			System.out.println("What do you want to do?\n" + "1.To see the stocks\n" + "2.To add stocks\n"
-					+ "3.To update  the existing book details \n" + "4.To delete the book\n"+"5.To Quit");
+					+ "3.To update  the existing book details \n" + "4.To delete the book\n"+"5.To see the Book register records\n"+"6.To Quit");
 
 			choice = input.next();
 
-			while (!choice.matches(regex1)) {
-				System.out.println("Type 1 or 2 or 3 or 4");
-				choice = input.next();
-			}
 			while (!choice.matches("1") && !choice.matches("2") && !choice.matches("3") && !choice.matches("4")
-					&& !choice.matches("5")) {
+					&& !choice.matches("5") && !choice.matches("6")) {
 
-				System.out.println("Enter 1 OR 2 OR 3 OR 4");
+				System.out.println("Enter 1 OR 2 OR 3 OR 4 OR 5 OR 6");
 				choice = input.next();
 
 			}
@@ -87,7 +81,7 @@ public class Librarian {
 				
 				System.out.println("Which type of book,You want to add stock for?\n" + "1.Tamil books" + "2.English books");
 				String option1 = input.next();
-				while(!option1.matches(regex2)) {
+				while(!option1.matches(regex1)) {
 					System.out.println("Type 1 or 2");
 					option1 = input.next();
 
@@ -104,7 +98,7 @@ public class Librarian {
 
 						System.out.println("Enter the book name you want to add:");
 						String extraBook = input.next();
-						lib.setBkId(++countAddT);
+						lib.setBookId(0);
 						lib.setBookName(extraBook);
 						DataTamil.insert(lib);
 						countT++;
@@ -127,7 +121,7 @@ public class Librarian {
 
 						System.out.println("Enter the book name you want to add:");
 						String extraBook = input.next();
-						lib.setBkId(++countAddE);
+						lib.setBookId(0);
 						lib.setBookName(extraBook);
 						DataEnglish.insert(lib);
 						countE++;
@@ -150,7 +144,7 @@ public class Librarian {
 
 				System.out.println("Which type of book,You want to update the details?\n" + "1.Tamil books" + "2.English books");
 				String option1 = input.next();
-				while(!option1.matches(regex2)) {
+				while(!option1.matches(regex1)) {
 					System.out.println("Type 1 or 2");
 					option1 = input.next();
 
@@ -168,10 +162,10 @@ public class Librarian {
 						bookName = input.nextLine();
 
 						System.out.println("Enter the bookID:");
-						bkId = input.nextInt();
+						bookId = input.nextInt();
 
 						lib.setBookName(bookName);
-						lib.setBkId(bkId);
+						lib.setBookId(bookId);
 
 						DataTamil.update(lib);
 						update++;
@@ -191,10 +185,10 @@ public class Librarian {
 						bookName = input.nextLine();
 
 						System.out.println("Enter the bookID:");
-						bkId = input.nextInt();
+						bookId = input.nextInt();
 
 						lib.setBookName(bookName);
-						lib.setBkId(bkId);
+						lib.setBookId(bookId);
 
 						DataEnglish.update(lib);
 
@@ -210,7 +204,7 @@ public class Librarian {
 			if (choice.equals("4")) {
 				System.out.println("Which type of book,You want to delete?\n" + "1.Tamil books" + "2.English books");
 				String option1 = input.next();
-				while(!option1.matches(regex2)) {
+				while(!option1.matches(regex1)) {
 					System.out.println("Type 1 or 2");
 					option1 = input.next();
 				}
@@ -223,9 +217,9 @@ public class Librarian {
 					for (int i = 1; i <= add; i++) {
 
 						System.out.println("Enter the bookID:");
-						bkId = input.nextInt();
+						bookId = input.nextInt();
 
-						lib.setBkId(bkId);
+						lib.setBookId(bookId);
 
 						DataTamil.delete(lib);
 						delete++;
@@ -242,9 +236,9 @@ public class Librarian {
 					for (int i = 1; i <= add; i++) {
 
 						System.out.println("Enter the bookID:");
-						bkId = input.nextInt();
+						bookId = input.nextInt();
 
-						lib.setBkId(bkId);
+						lib.setBookId(bookId);
 
 						DataEnglish.delete(lib);
 						delete++;
@@ -255,7 +249,12 @@ public class Librarian {
 
 				System.out.println("LIBRARIAN NAME:" + name + "\nNUMBER OF BOOKS DELETED:" + delete);
 			}
-			if (choice.equals("5")) {
+			
+			if(choice.equals("5")) {
+				
+				bookRecords.read();
+			}
+			if (choice.equals("6")) {
 
 				System.out.println("You're exited");
 				break;

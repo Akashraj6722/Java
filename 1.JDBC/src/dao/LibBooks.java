@@ -2,12 +2,14 @@ package dao;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 import model.Library;
 import util.DataEnglish;
 import util.DataTamil;
 import util.Register;
+import util.bookRecords;
 
 public class LibBooks  {
 
@@ -18,14 +20,12 @@ public class LibBooks  {
 	String pass ;
 	String passW ;
 	String ans;
-	String phone;
+	String phone = "";
 	String name = "";
 	String option;
-	String bookId;
-	int bkId = 0;
+	int bookId = 0 ;
 
 	String regex="[a-zA-Z]{1,10}";
-	String regex1="[0-9]{1,2}";
 	String regex3="[6789]{1}[0-9]{9}";
 	String regexP= "^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+.])(?=.*\\d).{8,}$";
 	
@@ -57,29 +57,51 @@ public class LibBooks  {
 			name=input.next();
 
 		}
+		
 		System.out.println("Enter the MOBILE number");
+		
 		phone=input.next();
 		while(!phone.matches(regex3)) {
 			System.err.println("Enter the  VALID MOBILE number:");
 			phone=input.next();
 		}
+//		while(true)
+//		{
+//		try {
+//			System.out.println("Enter the MOBILE number");
+//			
+//			phone=input.next();
+//			while(!phone.matches(regex3)) {
+//				System.err.println("Enter the  VALID MOBILE number:");
+//				phone=input.next();
+//			}
+//			
+//			lib.setPhone(phone);
+//		     Register.register(lib);
+//		     break;
+//		}catch(SQLIntegrityConstraintViolationException e) {
+//			System.out.println(e);
+//			System.out.println("Enter correct phone number");
+//			input.nextLine();
+//			
+//		}
+//	}	
+			
 		System.out.println("SET PASSWORD");
 		pass=input.next();
 		while(!pass.matches(regexP)) {
 			System.err.println("Enter the VALID PASSWORD:");
 			pass=input.next();
-			
-
 		}
+		
 		
 		lib.setUserName(name);
 		lib.setPhone(phone);
 		lib.setPass(pass);
-		Register.register(lib);
+	     Register.register(lib);
 
-		System.out.println("SIGNED UP SUCCESFULLY\n");
-	
-	
+		
+	System.out.println("SIGNED UP SUCCESFULLY\n");
 	System.out.println("LOGIN");
 	
 	System.out.println("Enter the USERNAME");
@@ -167,201 +189,39 @@ public class LibBooks  {
 		
 		DataTamil.read();
 		System.out.println("Enter the BOOK ID:");
-		bookId=input.next();
-		while(!bookId.matches(regex1)) {
-			System.err.println("Enter the VALID  BOOK ID:");
-			bookId=input.next();
-  }
-	
-		 String[] tamil= {"Seevaka chinthamani","Silappathikaram","Manimekalai","Kundalakesi","Valayapathi","Ramayanam","Kambaramayanam","Ponniyin selvan","Karuvaachi kaaviyam","Thanner desam"	};	
-	        
-	         bkId = Integer.parseInt(bookId);
-	        for(int i=0;i<tamil.length;i++) {
-	        	 
-	        	 if((i+1) == bkId) {
-	        		 System.out.println("---------------------------");
-	        		 System.out.println("BOOK NAME:"+tamil[i]);
-	        		 System.out.println("---------------------------");
+		bookId=NumbersValidation.validateBookId();
+		
+		lib.setBookId(bookId);
+		DataTamil.readSelect(lib);
 
-	        	 
-	        	 switch(bkId) {
-	        	 case(1):
-	        		 
-	        		 System.out.println("TOTAL STOCK:47\n"+"AVAILABLE STOCK:12");
-	        	 System.out.println("REQUESTED BOOK IS AVILABLE ");
-	        	     break;
-	        	     
-	        	 case(2):
-	        		 
-	        		 System.out.println("TOTAL STOCK:50\n"+"AVAILABLE STOCK:0\n");
-	        	     System.out.println("SORRY REQUESTED BOOK IS NOT AVAILABLE RIGHT NOW\n");
-	        	     break;
-	        	     
-                 case(3):
-	        		 
-	        		 System.out.println("TOTAL STOCK:42\n"+"AVAILABLE STOCK:10");
-	        	 System.out.println("REQUESTED BOOK IS AVILABLE ");
-
-	        	     break;    
-	        	     
-                  case(4):
-                	  
-	        		 System.out.println("TOTAL STOCK:65\n"+"AVAILABLE STOCK:32");
-		        	 System.out.println("REQUESTED BOOK IS AVILABLE ");
-
-	        	     break;
-	        	     
-                  case(5):
- 
-                       System.out.println("TOTAL STOCK:23\n"+"AVAILABLE STOCK:0");
-	        	     System.out.println("SORRY REQUESTED BOOK IS NOT AVAILABLE RIGHT NOW\n");
-
-                       break;
-                       
-                   case(6):
- 
-                       System.out.println("TOTAL STOCK:45\n"+"AVAILABLE STOCK:0");
-	        	     System.out.println("SORRY REQUESTED BOOK IS NOT AVAILABLE RIGHT NOW\n");
-
-                       break;
-                       
-                   case(7):
- 
-                        System.out.println("TOTAL STOCK:88\n"+"AVAILABLE STOCK:23");
-		        	 System.out.println("REQUESTED BOOK IS AVILABLE ");
-
-                        break;
-                        
-                   case(8):
- 
-                        System.out.println("TOTAL STOCK:30\n"+"AVAILABLE STOCK:0");
-	        	     System.out.println("SORRY REQUESTED BOOK IS NOT AVAILABLE RIGHT NOW\n");
-
-                        break;
-                        
-                    case(9):
- 
-                          System.out.println("TOTAL STOCK:70\n"+"AVAILABLE STOCK:0");
-	        	     System.out.println("SORRY REQUESTED BOOK IS NOT AVAILABLE RIGHT NOW\n");
-
-                          break;
-                          
-                     case(10):
- 
-                           System.out.println("TOTAL STOCK:35\n"+"AVAILABLE STOCK:11");
-		        	 System.out.println("REQUESTED BOOK IS AVILABLE ");
-
-                           break;
-	        
-			}
-	        	 }
-	}
 	}
 	
 	if(option.equals("english")) {
 		
 		DataEnglish.read();
 		System.out.println("Enter the BOOK ID:");
-		bookId=input.next();
-		while(!bookId.matches(regex1)) {
-			System.err.println("Enter the VALID  BOOK ID:");
-			bookId=input.next();
-  }
+		bookId=NumbersValidation.validateBookId();	
+		
+		lib.setBookId(bookId);
+		DataEnglish.readSelect(lib);
 	
-		 String[] english= {"Sherlock holmes","Half girlfriend","Treasure island","Rebel Nation","Rich dad Poor dad","Beyond the ordinary","Harry potter","Alice the wonderland","The Great Gatsby","The Lord of the Rings"};	
-	        
-	         bkId = Integer.parseInt(bookId);
-	        for(int i=0;i<english.length;i++) {
-	        	 
-	        	 if((i+1) == bkId) {
-	        		 System.out.println("---------------------------");
-	        		 System.out.println("BOOK NAME:"+english[i]);
-	        		 System.out.println("---------------------------");
-
-	        	 
-	        	 switch(bkId) {
-	        	 case(1):
-	        		 
-	        		 System.out.println("TOTAL STOCK:47\n"+"AVAILABLE STOCK:12");
-	        	 System.out.println("REQUESTED BOOK IS AVILABLE ");
-	        	     break;
-	        	     
-	        	 case(2):
-	        		 
-	        		 System.out.println("TOTAL STOCK:50\n"+"AVAILABLE STOCK:0\n");
-	        	     System.out.println("SORRY REQUESTED BOOK IS NOT AVAILABLE RIGHT NOW\n");
-	        	     break;
-	        	     
-                 case(3):
-	        		 
-	        		 System.out.println("TOTAL STOCK:42\n"+"AVAILABLE STOCK:10");
-	        	 System.out.println("REQUESTED BOOK IS AVILABLE ");
-
-	        	     break;    
-	        	     
-                  case(4):
-                	  
-	        		 System.out.println("TOTAL STOCK:65\n"+"AVAILABLE STOCK:32");
-		        	 System.out.println("REQUESTED BOOK IS AVILABLE ");
-
-	        	     break;
-	        	     
-                  case(5):
- 
-                       System.out.println("TOTAL STOCK:23\n"+"AVAILABLE STOCK:0");
-	        	     System.out.println("SORRY REQUESTED BOOK IS NOT AVAILABLE RIGHT NOW\n");
-
-                       break;
-                       
-                   case(6):
- 
-                       System.out.println("TOTAL STOCK:45\n"+"AVAILABLE STOCK:0");
-	        	     System.out.println("SORRY REQUESTED BOOK IS NOT AVAILABLE RIGHT NOW\n");
-
-                       break;
-                       
-                   case(7):
- 
-                        System.out.println("TOTAL STOCK:55\n"+"AVAILABLE STOCK:23");
-		        	 System.out.println("REQUESTED BOOK IS AVILABLE ");
-
-                        break;
-                        
-                   case(8):
- 
-                        System.out.println("TOTAL STOCK:30\n"+"AVAILABLE STOCK:0");
-	        	     System.out.println("SORRY REQUESTED BOOK IS NOT AVAILABLE RIGHT NOW\n");
-
-                        break;
-                        
-                    case(9):
- 
-                          System.out.println("TOTAL STOCK:70\n"+"AVAILABLE STOCK:0");
-	        	     System.out.println("SORRY REQUESTED BOOK IS NOT AVAILABLE RIGHT NOW\n");
-
-                          break;
-                          
-                     case(10):
- 
-                           System.out.println("TOTAL STOCK:35\n"+"AVAILABLE STOCK:11");
-		        	 System.out.println("REQUESTED BOOK IS AVILABLE ");
-
-                           break;
-	        
-			}
-	        	 }
-	}
-	        
 	}
 	System.out.println("---------------------------");
 
+	LocalDate d=LocalDate.now();
+	LocalDate due=d.plusDays(5);
+	
+	String date1=d.toString();
+	String dueDate=due.toString();
 	
 	lib.setName(userName);
-	lib.setBkId(bkId);
-	
-	
+	lib.setBookId(bookId); 
+	lib.setDate(date1);	
+	lib.setDueDate(dueDate);
+	bookRecords.insert(lib);
 	System.out.println(lib.toString());
 	input.close();
 	}
 }
+
 

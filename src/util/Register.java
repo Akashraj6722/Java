@@ -19,13 +19,14 @@ public class Register {
 		Connection connection = ConnectUtil.getConnection();
 		while(true) {
 			try {
-				String regQuery="insert into register(userName,pass,phone) values(?,?,?)";
+				String regQuery="insert into register(userName,pass,phone,User_or_Admin) values(?,?,?,?)";
 				
 				PreparedStatement prepare=connection.prepareStatement(regQuery);
 				
 				prepare.setString(1,lib.userName);
 				prepare.setString(2, lib.pass);
 				prepare.setString(3, lib.phone);
+				prepare.setString(4, lib.Type);
 				int rows =prepare.executeUpdate();
 				
 				System.out.println("Registered user:"+rows);
@@ -52,12 +53,13 @@ public class Register {
 		
 		Connection connection= ConnectUtil.getConnection();
 		
-		String checkQuery="Select userName,pass from register where userName=? and pass=?";
+		String checkQuery="Select userName,pass,User_or_Admin from register where userName=? and pass=? and User_or_Admin=?";
 		
 		
 		PreparedStatement prepare=connection.prepareStatement(checkQuery);
 		prepare.setString(1,lib.getUserName());
 		prepare.setString(2,lib.getPassW());
+		prepare.setString(3, lib.getType());
 	
 		ResultSet rs= prepare.executeQuery();
 			

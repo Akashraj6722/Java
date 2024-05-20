@@ -98,6 +98,8 @@ public class LibBooks  {
 		lib.setUserName(name);
 		lib.setPhone(phone);
 		lib.setPass(pass);
+		lib.setType("User");
+
 	     Register.register(lib);
 
 		
@@ -113,6 +115,8 @@ public class LibBooks  {
 
 	lib.setUserName(userName);
 	lib.setPassW(passW);
+	lib.setType("User");
+
 	
 	Register.login(lib);
 	
@@ -131,6 +135,8 @@ public class LibBooks  {
 
 		lib.setUserName(userName);
 		lib.setPassW(passW);
+		lib.setType("User");
+
 		
 		Register.login(lib);
 	
@@ -155,6 +161,7 @@ public class LibBooks  {
 	
 	lib.setUserName(userName);
 	lib.setPassW(passW);
+	lib.setType("User");
 	
 	Register.login(lib);
 
@@ -168,6 +175,7 @@ public class LibBooks  {
 		System.out.println("Enter  PASSWORD:");
 		passW=input.next();
 		lib.setPassW(passW);
+		lib.setType("User");
 		
 		Register.login(lib);
 		

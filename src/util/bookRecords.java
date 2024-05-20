@@ -15,13 +15,14 @@ public class bookRecords {
 		
 		Connection connection=ConnectUtil.getConnection();
 		
-		String insertQuery="update register set bookID=?,registeredDate=?,dueDate=? where userName=?";
+		String insertQuery="update register set bookName=?,bookID=?,registeredDate=?,dueDate=? where userName=?";
 		PreparedStatement prepare=connection.prepareStatement(insertQuery);
 		
-		prepare.setInt(1, lib.bookId);
-		prepare.setString(2, lib.date);
-		prepare.setString(3, lib.dueDate);
-		prepare.setString(4, lib.userName);
+		prepare.setString(1, lib.bookName);
+		prepare.setInt(2, lib.bookId);
+		prepare.setString(3, lib.date);
+		prepare.setString(4, lib.dueDate);
+		prepare.setString(5, lib.userName);
 
 		
        int rows=prepare.executeUpdate();
@@ -34,7 +35,7 @@ public class bookRecords {
 	public static void read() throws ClassNotFoundException, SQLException {
 		Connection connection = ConnectUtil.getConnection();
 		
-		String readQuery = "select userName,bookID,registeredDate,dueDate from register";
+		String readQuery = "select userName,bookID,registeredDate,dueDate from register where User_or_Admin=User";
 		
 		PreparedStatement prepareStatement = connection.prepareStatement(readQuery);
 		

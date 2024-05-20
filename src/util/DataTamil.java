@@ -106,6 +106,8 @@ public class DataTamil {
 			for(int i=1; i<=columnCount; i+=1)
 			{
 				System.out.print(rs.getString(i) + "\t");
+				lib.setBookName(rs.getString(i));
+
 			}
 			System.out.println();
 		}

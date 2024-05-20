@@ -17,6 +17,7 @@ public class Library {
 	public String date;
 	public String dueDate;
 	public String language;
+	public String Type;
 
 
 
@@ -99,6 +100,14 @@ public class Library {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
+	
+	
+	public String getType() {
+		return Type;
+	}
+	public void setType(String type) {
+		Type = type;
+	}
 	public Library(String name, String bookName, String authorName,int totalBooksAdded, int bkId, String pass, String userName, String phone, String passW) {
 		super();
 		this.name = name;
@@ -107,6 +116,7 @@ public class Library {
 		this.userName=userName;
 		this.phone=phone;
 		this.passW=passW;
+		
 	}
 	
 	
@@ -122,10 +132,13 @@ public class Library {
 	}
 	
 	public String toString() {
-		return "Library [name=" + name +  ", bookId=" + bookId + "]";
+		return "Library [name=" + name +  ", bookId=" + bookId + ",BookName="+bookName+"]";
+		
+		
+		
 	}
 	
-	
+//	
 
 
 }
